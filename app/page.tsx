@@ -6,6 +6,7 @@ import {
   MobileExpandablePanel,
 } from "./components/mobile-expandable";
 import { ReviewsCarousel } from "./components/reviews-carousel";
+import { ScrollAnimator } from "./components/scroll-animator";
 
 const services = [
   {
@@ -144,382 +145,373 @@ const revealDelay = (delay: number): CSSProperties =>
 export default function Home() {
   return (
     <>
+      <ScrollAnimator />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(localBusinessSchema),
         }}
       />
-      <main className="flex flex-1 flex-col">
-        <section className="px-4 pb-12 pt-4 sm:px-10 sm:pb-16 sm:pt-6 lg:px-14">
-          <div
-            data-reveal
-            style={revealDelay(0)}
-            className="mx-auto max-w-6xl rounded-[2rem] border border-border bg-[linear-gradient(135deg,rgba(17,28,20,0.96),rgba(29,48,24,0.88))] px-5 py-5 shadow-[0_30px_90px_rgba(0,0,0,0.4)] sm:px-8 sm:py-6 lg:px-10 lg:py-8"
-          >
-            <header className="flex flex-col gap-4 border-b border-border pb-5 sm:pb-6 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <p className="text-xs text-center lg:text-start uppercase tracking-[0.32em] text-brand mb-3">
-                  DFW appliance repair
-                </p>
-                <h1 className="font-serif text-4xl text-center lg:text-start leading-[0.92] text-white sm:text-5xl lg:text-6xl font-bold mb-3">
-                  At Your Service Appliance Repair
-                </h1>
-              </div>
-              <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-row sm:flex-wrap">
-                <a
-                  href={`tel:${contactPhone}`}
-                  className="rounded-full bg-brand px-4 py-3 text-center text-sm font-semibold text-black shadow-[0_12px_30px_rgba(153,211,93,0.28)] sm:px-6"
-                >
-                  Call now
-                </a>
-                <a
-                  href={viewMyWorkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-brand/30 bg-white/6 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
-                >
-                  View my work
-                </a>
-                <a
-                  href="#contact"
-                  className="rounded-full border border-white/15 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
-                >
-                  Contact
-                </a>
-              </div>
-            </header>
+      <main className="page-shell flex flex-1 flex-col px-4 pb-16 pt-4 sm:px-10 sm:pb-20 sm:pt-6 lg:px-14">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden rounded-[2.25rem] bg-transparent">
+          <section className="relative isolate overflow-hidden px-5 pb-12 pt-5 sm:px-8 sm:pb-16 sm:pt-6 lg:px-10 lg:py-8">
+            <div aria-hidden="true" className="ambient-orb ambient-orb-primary" />
+            <div aria-hidden="true" className="ambient-orb ambient-orb-secondary" />
+            <div data-reveal style={revealDelay(0)}>
+              <header className="flex flex-col gap-4 border-b border-border pb-5 sm:pb-6 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p className="mb-3 text-center text-xs uppercase tracking-[0.32em] text-brand lg:text-start">
+                    DFW appliance repair
+                  </p>
+                  <h1 className="mb-3 text-center font-serif text-4xl leading-[0.92] font-bold text-white sm:text-5xl lg:text-start lg:text-6xl">
+                    At Your Service Appliance Repair
+                  </h1>
+                </div>
+                <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-row sm:flex-wrap">
+                  <a
+                    href={`tel:${contactPhone}`}
+                    className="cta-button rounded-full bg-brand px-4 py-3 text-center text-sm font-semibold text-black shadow-[0_12px_30px_rgba(153,211,93,0.28)] sm:px-6"
+                  >
+                    Call now
+                  </a>
+                  <a
+                    href={viewMyWorkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cta-button rounded-full border border-brand/30 bg-white/6 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
+                  >
+                    View my work
+                  </a>
+                  <a
+                    href="#contact"
+                    className="cta-button rounded-full border border-white/15 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
+                  >
+                    Contact
+                  </a>
+                </div>
+              </header>
 
-            <div className="grid gap-6 py-6 sm:gap-8 sm:py-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-10 lg:py-10">
-              <div data-reveal style={revealDelay(100)} className="max-w-3xl">
-                <p className="mb-4 inline-flex rounded-full border border-brand/25 bg-brand/10 px-4 py-2 text-sm text-brand sm:mb-5">
-                  Fast • Honest • Affordable • Insured
-                </p>
-                <h2 className="font-serif text-[2.85rem] leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-                  Appliance repair for Grand Prairie homes and the wider DFW
-                  area.
-                </h2>
+              <div className="grid gap-6 py-6 sm:gap-8 sm:py-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-10 lg:py-10">
+                <div data-reveal style={revealDelay(100)} className="max-w-3xl">
+                  <p className="mb-4 inline-flex rounded-full border border-brand/25 bg-brand/10 px-4 py-2 text-sm text-brand sm:mb-5">
+                    Fast • Honest • Affordable • Insured
+                  </p>
+                  <h2 className="font-serif text-[2.85rem] leading-[0.9] text-white sm:text-6xl lg:text-7xl">
+                    Appliance repair for Grand Prairie homes and the wider DFW
+                    area.
+                  </h2>
+                  <ExpandableText
+                    text="Fast help for washers, dryers, stoves, ovens, dishwashers, microwaves, and more. If something breaks at home, the goal is simple: make it easy to call, explain the problem, and get dependable service moving quickly."
+                    previewWords={16}
+                    className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8"
+                    buttonClassName="mt-2 inline-flex text-sm font-semibold text-brand md:hidden"
+                  />
+
+                  <div
+                    data-reveal
+                    style={revealDelay(150)}
+                    className="motion-panel mt-6 inline-flex rounded-[1.5rem] border border-brand/20 bg-black/25 px-4 py-3 text-white shadow-[0_14px_35px_rgba(0,0,0,0.22)] sm:mt-8 sm:px-5 sm:py-4"
+                  >
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
+                        Google rating
+                      </p>
+                      <div className="mt-3 flex flex-wrap items-center gap-3">
+                        <div
+                          className="flex items-center gap-1"
+                          aria-label="5 star Google rating"
+                        >
+                          {Array.from({ length: 5 }).map((_, index) => (
+                            <span
+                              key={index}
+                              aria-hidden="true"
+                              className="text-xl text-accent"
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                        <p className="text-base font-semibold text-white">
+                          5 stars
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4 sm:grid-cols-3">
+                    {heroStats.map((stat, index) => (
+                      <div
+                        key={stat.label}
+                        data-reveal
+                        data-float={index === 1 ? "slow" : "fast"}
+                        style={revealDelay(180 + index * 70)}
+                        className={`motion-panel rounded-3xl border border-border bg-white/6 p-4 backdrop-blur-sm sm:p-5 ${
+                          index === heroStats.length - 1
+                            ? "col-span-2 sm:col-span-1"
+                            : ""
+                        }`}
+                      >
+                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+                          {stat.label}
+                        </p>
+                        <p className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
+                          {stat.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  data-reveal
+                  data-float="slow"
+                  style={revealDelay(200)}
+                  className="motion-panel rounded-[2rem] border border-brand/20 bg-black/35 p-5 text-white shadow-[0_18px_50px_rgba(0,0,0,0.28)] sm:p-7"
+                >
+                  <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand">
+                    What the brand promises
+                  </p>
+                  <MobileExpandablePanel
+                    collapsedLabel="View promise highlights"
+                    expandedLabel="Hide promise highlights"
+                    contentClassName="mt-4 sm:mt-5"
+                  >
+                    <ul className="space-y-4 text-sm leading-7 text-white/90">
+                      {promiseCards.map((item) => (
+                        <li
+                          key={item}
+                          className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </MobileExpandablePanel>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="services"
+            className="px-5 py-8 sm:px-8 sm:py-10 lg:px-10"
+          >
+            <div data-reveal style={revealDelay(0)}>
+              <div className="mb-6 flex flex-col gap-4 sm:mb-8 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
+                    Services
+                  </p>
+                  <h2 className="mt-2 font-serif text-4xl text-white sm:text-5xl">
+                    Repair help for the appliances your home depends on every
+                    day.
+                  </h2>
+                </div>
                 <ExpandableText
-                  text="Fast help for washers, dryers, stoves, ovens, dishwashers, microwaves, and more. If something breaks at home, the goal is simple: make it easy to call, explain the problem, and get dependable service moving quickly."
-                  previewWords={16}
-                  className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8"
-                  buttonClassName="mt-2 inline-flex text-sm font-semibold text-brand md:hidden"
+                  text="From laundry room breakdowns to kitchen appliance issues, service is focused on practical repairs, clear communication, and getting everyday routines back on track as quickly as possible."
+                  previewWords={15}
+                  className="max-w-xl text-base leading-7 text-slate-300"
                 />
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {services.map((service, index) => (
+                  <article
+                    key={service.name}
+                    data-reveal
+                    style={revealDelay(60 + index * 70)}
+                    className="motion-panel group rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_14px_35px_rgba(0,0,0,0.18)]"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand">
+                      0{index + 1}
+                    </p>
+                    <h3 className="mt-3 font-serif text-3xl leading-tight text-white">
+                      {service.name}
+                    </h3>
+                    <ExpandableText
+                      text={service.details}
+                      previewWords={11}
+                      className="mt-4 text-base leading-7 text-slate-300"
+                    />
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+            <div data-reveal style={revealDelay(0)} className="py-1">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                <div data-reveal style={revealDelay(80)} className="max-w-2xl">
+                  <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
+                    Reviews
+                  </p>
+                  <h2 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
+                    Local homeowners continue to recommend the service.
+                  </h2>
+                  <ExpandableText
+                    text="Customer feedback highlights professional service, fair pricing, and dependable help when an appliance stops working. Browse a few local recommendations here, then open the Google business profile to see the latest review activity."
+                    previewWords={16}
+                    className="mt-4 text-base leading-8 text-slate-300"
+                  />
+                </div>
 
                 <div
                   data-reveal
                   style={revealDelay(150)}
-                  className="mt-6 inline-flex rounded-[1.5rem] border border-brand/20 bg-black/25 px-4 py-3 text-white shadow-[0_14px_35px_rgba(0,0,0,0.22)] sm:mt-8 sm:px-5 sm:py-4"
+                  className="motion-panel rounded-[1.5rem] border border-brand/15 bg-black/20 px-5 py-4"
                 >
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
-                      Google rating
-                    </p>
-                    <div className="mt-3 flex flex-wrap items-center gap-3">
-                      <div
-                        className="flex items-center gap-1"
-                        aria-label="5 star Google rating"
+                  <div className="flex items-center gap-2">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <span
+                        key={index}
+                        aria-hidden="true"
+                        className="text-2xl text-accent"
                       >
-                        {Array.from({ length: 5 }).map((_, index) => (
-                          <span
-                            key={index}
-                            aria-hidden="true"
-                            className="text-xl text-accent"
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
-                      <p className="text-base font-semibold text-white">
-                        5 stars
-                      </p>
-                    </div>
+                        ★
+                      </span>
+                    ))}
                   </div>
-                </div>
-
-                <div className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-4 sm:grid-cols-3">
-                  {heroStats.map((stat, index) => (
-                    <div
-                      key={stat.label}
-                      data-reveal
-                      style={revealDelay(180 + index * 70)}
-                      className={`rounded-3xl border border-border bg-white/6 p-4 backdrop-blur-sm sm:p-5 ${
-                        index === heroStats.length - 1
-                          ? "col-span-2 sm:col-span-1"
-                          : ""
-                      }`}
-                    >
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-                        {stat.label}
-                      </p>
-                      <p className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
-                        {stat.value}
-                      </p>
-                    </div>
-                  ))}
+                  <p className="mt-3 text-3xl font-semibold text-white">
+                    15 local faves
+                  </p>
+                  <p className="mt-1 text-sm uppercase tracking-[0.22em] text-brand">
+                    Grand Prairie neighborhood recommendations
+                  </p>
                 </div>
               </div>
 
-              <div
-                data-reveal
-                style={revealDelay(200)}
-                className="rounded-[2rem] border border-brand/20 bg-black/35 p-5 text-white shadow-[0_18px_50px_rgba(0,0,0,0.28)] sm:p-7"
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand">
-                  What the brand promises
-                </p>
+              <div data-reveal style={revealDelay(220)}>
+                <ReviewsCarousel
+                  googleReviewsUrl={googleReviewsUrl}
+                  reviews={reviews}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+            <div data-reveal style={revealDelay(0)} className="py-1 text-white">
+              <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+                <div data-reveal style={revealDelay(80)}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
+                    Service area
+                  </p>
+                  <h2 className="mt-3 font-serif text-4xl sm:text-5xl">
+                    Serving Grand Prairie and nearby DFW communities.
+                  </h2>
+                  <ExpandableText
+                    text="Service is centered in Grand Prairie, with coverage that extends across nearby Dallas-Fort Worth neighborhoods. If you are in the area, call or text to confirm availability and scheduling."
+                    previewWords={15}
+                    className="mt-4 max-w-xl text-base leading-8 text-white/80"
+                  />
+                </div>
+
                 <MobileExpandablePanel
-                  collapsedLabel="View promise highlights"
-                  expandedLabel="Hide promise highlights"
-                  contentClassName="mt-4 sm:mt-5"
+                  collapsedLabel="View service cities"
+                  expandedLabel="Hide service cities"
+                  contentClassName="mt-2 md:mt-0"
                 >
-                  <ul className="space-y-4 text-sm leading-7 text-white/90">
-                    {promiseCards.map((item) => (
-                      <li
-                        key={item}
-                        className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {serviceAreas.map((area, index) => (
+                      <div
+                        key={area}
+                        data-reveal
+                        style={revealDelay(140 + index * 55)}
+                        className="motion-panel rounded-[1.5rem] border border-white/10 bg-white/10 px-4 py-5 text-center text-base font-semibold"
                       >
-                        {item}
-                      </li>
+                        {area}
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </MobileExpandablePanel>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="services" className="px-4 py-8 sm:px-10 sm:py-10 lg:px-14">
-          <div className="mx-auto max-w-6xl">
-            <div
-              data-reveal
-              style={revealDelay(0)}
-              className="mb-6 flex flex-col gap-4 sm:mb-8 lg:flex-row lg:items-end lg:justify-between"
-            >
-              <div className="max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
-                  Services
-                </p>
-                <h2 className="mt-2 font-serif text-4xl text-white sm:text-5xl">
-                  Repair help for the appliances your home depends on every day.
-                </h2>
-              </div>
-              <ExpandableText
-                text="From laundry room breakdowns to kitchen appliance issues, service is focused on practical repairs, clear communication, and getting everyday routines back on track as quickly as possible."
-                previewWords={15}
-                className="max-w-xl text-base leading-7 text-slate-300"
-              />
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {services.map((service, index) => (
-                <article
-                  key={service.name}
-                  data-reveal
-                  style={revealDelay(60 + index * 70)}
-                  className="group rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_14px_35px_rgba(0,0,0,0.18)]"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand">
-                    0{index + 1}
-                  </p>
-                  <h3 className="mt-3 font-serif text-3xl leading-tight text-white">
-                    {service.name}
-                  </h3>
-                  <ExpandableText
-                    text={service.details}
-                    previewWords={11}
-                    className="mt-4 text-base leading-7 text-slate-300"
-                  />
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-4 py-8 sm:px-10 sm:py-10 lg:px-14">
-          <div
-            data-reveal
-            style={revealDelay(0)}
-            className="mx-auto max-w-6xl rounded-[2rem] border border-border bg-[linear-gradient(180deg,rgba(18,29,21,0.96),rgba(12,19,14,0.96))] p-7 shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
+          <section
+            id="contact"
+            className="px-5 pb-12 pt-8 sm:px-8 sm:pb-16 sm:pt-10 lg:px-10"
           >
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-              <div data-reveal style={revealDelay(80)} className="max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
-                  Reviews
-                </p>
-                <h2 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
-                  Local homeowners continue to recommend the service.
-                </h2>
-                <ExpandableText
-                  text="Customer feedback highlights professional service, fair pricing, and dependable help when an appliance stops working. Browse a few local recommendations here, then open the Google business profile to see the latest review activity."
-                  previewWords={16}
-                  className="mt-4 text-base leading-8 text-slate-300"
-                />
-              </div>
+            <div data-reveal style={revealDelay(0)} className="py-1">
+              <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+                <div className="space-y-4">
+                  <div data-reveal style={revealDelay(80)}>
+                    <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
+                      Contact
+                    </p>
+                    <h2 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
+                      Call, text, or email to get service started.
+                    </h2>
+                    <ExpandableText
+                      text="Reach out with the appliance type, the problem you are seeing, and your area. That keeps the first conversation quick and makes it easier to get the service process moving."
+                      previewWords={16}
+                      className="mt-5 max-w-xl text-base leading-8 text-slate-300"
+                    />
+                  </div>
 
-              <div
-                data-reveal
-                style={revealDelay(150)}
-                className="rounded-[1.5rem] border border-brand/15 bg-black/20 px-5 py-4"
-              >
-                <div className="flex items-center gap-2">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <span
-                      key={index}
-                      aria-hidden="true"
-                      className="text-2xl text-accent"
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p className="mt-3 text-3xl font-semibold text-white">
-                  15 local faves
-                </p>
-                <p className="mt-1 text-sm uppercase tracking-[0.22em] text-brand">
-                  Grand Prairie neighborhood recommendations
-                </p>
-              </div>
-            </div>
+                  <a
+                    href={`tel:${contactPhone}`}
+                    data-reveal
+                    style={revealDelay(140)}
+                    className="motion-panel block rounded-[1.6rem] border border-border bg-surface p-5"
+                  >
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
+                      Phone
+                    </p>
+                    <p className="mt-3 text-2xl font-semibold text-white">
+                      {contactPhoneDisplay}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      Direct line for homeowners who want to call or text about
+                      a repair.
+                    </p>
+                  </a>
 
-            <div data-reveal style={revealDelay(220)}>
-              <ReviewsCarousel
-                googleReviewsUrl={googleReviewsUrl}
-                reviews={reviews}
-              />
-            </div>
-          </div>
-        </section>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    data-reveal
+                    style={revealDelay(210)}
+                    className="motion-panel block rounded-[1.6rem] border border-border bg-surface p-5"
+                  >
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
+                      Email
+                    </p>
+                    <p className="mt-3 break-all text-2xl font-semibold text-white">
+                      {contactEmail}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      Email option for service questions, scheduling details,
+                      and follow-up.
+                    </p>
+                  </a>
 
-        <section className="px-4 py-8 sm:px-10 sm:py-10 lg:px-14">
-          <div
-            data-reveal
-            style={revealDelay(0)}
-            className="mx-auto max-w-6xl rounded-[2rem] border border-border bg-[linear-gradient(180deg,rgba(126,180,63,0.22),rgba(8,13,9,0.98))] px-7 py-8 text-white"
-          >
-            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-              <div data-reveal style={revealDelay(80)}>
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
-                  Service area
-                </p>
-                <h2 className="mt-3 font-serif text-4xl sm:text-5xl">
-                  Serving Grand Prairie and nearby DFW communities.
-                </h2>
-                <ExpandableText
-                  text="Service is centered in Grand Prairie, with coverage that extends across nearby Dallas-Fort Worth neighborhoods. If you are in the area, call or text to confirm availability and scheduling."
-                  previewWords={15}
-                  className="mt-4 max-w-xl text-base leading-8 text-white/80"
-                />
-              </div>
-
-              <MobileExpandablePanel
-                collapsedLabel="View service cities"
-                expandedLabel="Hide service cities"
-                contentClassName="mt-2 md:mt-0"
-              >
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                  {serviceAreas.map((area, index) => (
-                    <div
-                      key={area}
-                      data-reveal
-                      style={revealDelay(140 + index * 55)}
-                      className="rounded-[1.5rem] border border-white/10 bg-white/10 px-4 py-5 text-center text-base font-semibold"
-                    >
-                      {area}
-                    </div>
-                  ))}
-                </div>
-              </MobileExpandablePanel>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="px-4 pb-16 pt-8 sm:px-10 sm:pb-20 sm:pt-10 lg:px-14"
-        >
-          <div
-            data-reveal
-            style={revealDelay(0)}
-            className="mx-auto max-w-6xl rounded-[2rem] border border-border bg-[linear-gradient(180deg,rgba(16,25,20,0.96),rgba(10,16,12,0.96))] p-8 shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
-          >
-            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-              <div className="space-y-4">
-                <div data-reveal style={revealDelay(80)}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
-                    Contact
-                  </p>
-                  <h2 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
-                    Call, text, or email to get service started.
-                  </h2>
-                  <ExpandableText
-                    text="Reach out with the appliance type, the problem you are seeing, and your area. That keeps the first conversation quick and makes it easier to get the service process moving."
-                    previewWords={16}
-                    className="mt-5 max-w-xl text-base leading-8 text-slate-300"
-                  />
+                  <div
+                    data-reveal
+                    style={revealDelay(280)}
+                    className="motion-panel rounded-[1.6rem] border border-border bg-surface p-5"
+                  >
+                    <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
+                      Coverage
+                    </p>
+                    <p className="mt-3 text-2xl font-semibold text-white">
+                      Grand Prairie / DFW Area
+                    </p>
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                      Service-area focused contact details keep the homepage
+                      simple and work well for a mobile repair business serving
+                      nearby cities.
+                    </p>
+                  </div>
                 </div>
 
-                <a
-                  href={`tel:${contactPhone}`}
-                  data-reveal
-                  style={revealDelay(140)}
-                  className="block rounded-[1.6rem] border border-border bg-surface p-5"
-                >
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
-                    Phone
-                  </p>
-                  <p className="mt-3 text-2xl font-semibold text-white">
-                    {contactPhoneDisplay}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">
-                    Direct line for homeowners who want to call or text about a
-                    repair.
-                  </p>
-                </a>
-
-                <a
-                  href={`mailto:${contactEmail}`}
-                  data-reveal
-                  style={revealDelay(210)}
-                  className="block rounded-[1.6rem] border border-border bg-surface p-5"
-                >
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
-                    Email
-                  </p>
-                  <p className="mt-3 break-all text-2xl font-semibold text-white">
-                    {contactEmail}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">
-                    Email option for service questions, scheduling details, and
-                    follow-up.
-                  </p>
-                </a>
-
-                <div
-                  data-reveal
-                  style={revealDelay(280)}
-                  className="rounded-[1.6rem] border border-border bg-surface p-5"
-                >
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
-                    Coverage
-                  </p>
-                  <p className="mt-3 text-2xl font-semibold text-white">
-                    Grand Prairie / DFW Area
-                  </p>
-                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-                    Service-area focused contact details keep the homepage
-                    simple and work well for a mobile repair business serving
-                    nearby cities.
-                  </p>
+                <div data-reveal style={revealDelay(160)}>
+                  <ContactEmailForm emailAddress={contactEmail} />
                 </div>
               </div>
-
-              <div data-reveal style={revealDelay(160)}>
-                <ContactEmailForm emailAddress={contactEmail} />
-              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
     </>
   );

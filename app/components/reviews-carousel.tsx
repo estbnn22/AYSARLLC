@@ -137,7 +137,7 @@ export function ReviewsCarousel({
 
   return (
     <div
-      className="mt-8 rounded-[1.75rem] border border-brand/12 bg-black/18 p-4 sm:p-5"
+      className="motion-panel mt-8 rounded-[1.75rem] border border-brand/12 bg-black/18 p-4 sm:p-5"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onPointerDown={() => setIsPaused(true)}
@@ -160,7 +160,7 @@ export function ReviewsCarousel({
           <button
             type="button"
             aria-label="Previous review"
-            className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white"
+            className="cta-button rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm font-semibold text-white"
             onClick={() => scrollToIndex(activeIndex - 1)}
           >
             Prev
@@ -168,7 +168,7 @@ export function ReviewsCarousel({
           <button
             type="button"
             aria-label="Next review"
-            className="rounded-full border border-brand/20 bg-brand px-4 py-2 text-sm font-semibold text-black"
+            className="cta-button rounded-full border border-brand/20 bg-brand px-4 py-2 text-sm font-semibold text-black"
             onClick={() => scrollToIndex(activeIndex + 1)}
           >
             Next
@@ -188,7 +188,8 @@ export function ReviewsCarousel({
             <article
               key={reviewIds[index]}
               data-review-card
-              className="review-snap min-w-[min(20rem,calc(100vw-4.5rem))] max-w-[min(20rem,calc(100vw-4.5rem))] rounded-[1.5rem] border border-brand/10 bg-black/28 p-5 text-white backdrop-blur-sm sm:min-w-[23rem] sm:max-w-[23rem]"
+              data-active={activeIndex === index ? "true" : "false"}
+              className="review-card review-snap min-w-[min(20rem,calc(100vw-4.5rem))] max-w-[min(20rem,calc(100vw-4.5rem))] rounded-[1.5rem] border border-brand/10 bg-black/28 p-5 text-white backdrop-blur-sm sm:min-w-[23rem] sm:max-w-[23rem]"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand">
                 {review.source}
@@ -230,7 +231,7 @@ export function ReviewsCarousel({
           href={googleReviewsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex rounded-full border border-brand/20 px-4 py-2 text-sm font-semibold text-brand"
+          className="cta-button inline-flex rounded-full border border-brand/20 px-4 py-2 text-sm font-semibold text-brand"
         >
           Open Google profile
         </a>

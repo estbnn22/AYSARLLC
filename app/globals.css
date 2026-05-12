@@ -38,9 +38,56 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-manrope), sans-serif;
-  background-image:
-    radial-gradient(1200px 520px at 50% -8%, rgba(153, 211, 93, 0.14), transparent 60%),
-    linear-gradient(180deg, #0c140f 0%, #0a120d 48%, #070c08 100%);
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  animation: ambient-shift 22s ease-in-out infinite alternate;
+  background:
+    radial-gradient(
+      1200px 560px at 50% -10%,
+      rgba(153, 211, 93, 0.14),
+      transparent 62%
+    ),
+    radial-gradient(
+      960px 640px at 16% 72%,
+      rgba(108, 172, 57, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      880px 620px at 84% 76%,
+      rgba(153, 211, 93, 0.05),
+      transparent 72%
+    ),
+    linear-gradient(180deg, #0a120d 0%, #0a130d 34%, #0b1510 68%, #0c1711 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.75;
+  animation: ambient-pulse 18s ease-in-out infinite;
+  background:
+    radial-gradient(
+      480px 280px at 18% 18%,
+      rgba(225, 198, 90, 0.06),
+      transparent 72%
+    ),
+    radial-gradient(
+      620px 360px at 78% 26%,
+      rgba(153, 211, 93, 0.08),
+      transparent 72%
+    );
 }
 
 a,
@@ -62,10 +109,213 @@ button:hover {
   background: rgba(153, 211, 93, 0.35);
 }
 
-[data-reveal] {
+.page-shell {
+  animation: shell-settle 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ambient-orb {
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(24px);
+  opacity: 0.9;
+  animation: orb-drift var(--orb-duration, 16s) ease-in-out infinite;
+}
+
+.ambient-orb-primary {
+  top: -2rem;
+  right: -4rem;
+  width: min(24rem, 48vw);
+  height: min(24rem, 48vw);
+  background: radial-gradient(
+    circle,
+    rgba(153, 211, 93, 0.22) 0%,
+    rgba(153, 211, 93, 0.08) 34%,
+    transparent 72%
+  );
+}
+
+.ambient-orb-secondary {
+  bottom: 1rem;
+  left: -4.5rem;
+  width: min(18rem, 42vw);
+  height: min(18rem, 42vw);
+  --orb-duration: 20s;
+  animation-delay: -6s;
+  background: radial-gradient(
+    circle,
+    rgba(225, 198, 90, 0.16) 0%,
+    rgba(225, 198, 90, 0.04) 38%,
+    transparent 72%
+  );
+}
+
+html[data-motion="enabled"] [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0) scale(0.985);
+  filter: blur(10px);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    filter 720ms ease var(--reveal-delay, 0ms);
+}
+
+html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
   opacity: 1;
   transform: none;
   filter: none;
+}
+
+[data-float] {
+  animation: gentle-float var(--float-duration, 8.5s) ease-in-out infinite;
+}
+
+[data-float="slow"] {
+  --float-duration: 11s;
+}
+
+[data-float="fast"] {
+  --float-duration: 6.8s;
+}
+
+.motion-panel {
+  position: relative;
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    background-color 240ms ease;
+  will-change: transform;
+}
+
+.motion-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 240ms ease;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(153, 211, 93, 0.12),
+      transparent 32%,
+      transparent 68%,
+      rgba(225, 198, 90, 0.08)
+    );
+}
+
+.motion-panel:hover,
+.motion-panel:focus-within {
+  transform: translateY(-6px);
+  border-color: rgba(153, 211, 93, 0.28);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.24);
+}
+
+.motion-panel:hover::after,
+.motion-panel:focus-within::after {
+  opacity: 1;
+}
+
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cta-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-120%);
+  transition:
+    transform 540ms ease,
+    opacity 200ms ease;
+  background: linear-gradient(
+    115deg,
+    transparent 24%,
+    rgba(255, 255, 255, 0.22) 48%,
+    transparent 72%
+  );
+}
+
+.cta-button:hover::after,
+.cta-button:focus-visible::after {
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+.review-card {
+  transition:
+    transform 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.review-card[data-active="true"] {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(153, 211, 93, 0.24);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes ambient-pulse {
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes ambient-shift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(0, -1.5%, 0) scale(1.03);
+  }
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes orb-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(10px, -12px, 0) scale(1.06);
+  }
+}
+
+@keyframes shell-settle {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .reviews-scroller {
@@ -89,15 +339,40 @@ button:hover {
     scroll-behavior: auto;
   }
 
+  body::before,
+  body::after,
+  .page-shell,
+  .ambient-orb,
+  [data-float] {
+    animation: none;
+  }
+
   a:hover,
   button:hover {
     transform: none;
   }
 
-  [data-reveal] {
+  html[data-motion="enabled"] [data-reveal] {
     opacity: 1;
     transform: none;
     filter: none;
     transition: none;
+  }
+
+  .motion-panel,
+  .review-card,
+  .cta-button::after {
+    transition: none;
+  }
+
+  .motion-panel:hover,
+  .motion-panel:focus-within,
+  .review-card[data-active="true"] {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .cta-button::after {
+    display: none;
   }
 }

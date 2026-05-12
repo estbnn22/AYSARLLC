@@ -43,7 +43,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <footer className="border-t border-border bg-black/20 px-4 py-8 sm:px-10 lg:px-14">
+        <footer className="border-t border-border/70 bg-transparent px-4 py-8 sm:px-10 lg:px-14">
           <div className="mx-auto flex max-w-6xl flex-col gap-4 text-sm text-slate-200 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-3 gap-y-2">
               <a

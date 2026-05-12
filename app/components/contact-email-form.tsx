@@ -93,7 +93,7 @@ export function ContactEmailForm({ emailAddress }: ContactEmailFormProps) {
 
   return (
     <form
-      className="rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_14px_35px_rgba(0,0,0,0.18)]"
+      className="motion-panel rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_14px_35px_rgba(0,0,0,0.18)]"
       onSubmit={handleSubmit}
     >
       <div className="flex items-start justify-between gap-4">
@@ -194,7 +194,7 @@ export function ContactEmailForm({ emailAddress }: ContactEmailFormProps) {
         </p>
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-black shadow-[0_12px_30px_rgba(153,211,93,0.28)]"
+          className="cta-button inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-black shadow-[0_12px_30px_rgba(153,211,93,0.28)]"
         >
           Open email draft
         </button>

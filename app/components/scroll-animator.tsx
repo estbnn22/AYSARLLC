@@ -4,12 +4,16 @@ import { useEffect } from "react";
 
 export function ScrollAnimator() {
   useEffect(() => {
+    document.documentElement.dataset.motion = "enabled";
+
     const elements = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal]"),
     );
 
     if (elements.length === 0) {
-      return;
+      return () => {
+        delete document.documentElement.dataset.motion;
+      };
     }
 
     const revealAll = () => {
@@ -22,12 +26,16 @@ export function ScrollAnimator() {
 
     if (reduceMotion) {
       revealAll();
-      return;
+      return () => {
+        delete document.documentElement.dataset.motion;
+      };
     }
 
     if (typeof window.IntersectionObserver === "undefined") {
       revealAll();
-      return;
+      return () => {
+        delete document.documentElement.dataset.motion;
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -48,11 +56,21 @@ export function ScrollAnimator() {
       },
     );
 
+    const revealThreshold = window.innerHeight * 0.92;
+
     elements.forEach((element) => {
+      if (element.getBoundingClientRect().top <= revealThreshold) {
+        element.dataset.revealed = "true";
+        return;
+      }
+
       observer.observe(element);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      delete document.documentElement.dataset.motion;
+    };
   }, []);
 
   return null;
