@@ -49,7 +49,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  animation: ambient-shift 22s ease-in-out infinite alternate;
+  animation: ambient-shift 32s ease-in-out infinite alternate;
   background:
     radial-gradient(
       1200px 560px at 50% -10%,
@@ -75,8 +75,8 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.75;
-  animation: ambient-pulse 18s ease-in-out infinite;
+  opacity: 0.58;
+  animation: ambient-pulse 26s ease-in-out infinite;
   background:
     radial-gradient(
       480px 280px at 18% 18%,
@@ -110,7 +110,7 @@ button:hover {
 }
 
 .page-shell {
-  animation: shell-settle 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: shell-settle 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ambient-orb {
@@ -119,8 +119,8 @@ button:hover {
   border-radius: 999px;
   pointer-events: none;
   filter: blur(24px);
-  opacity: 0.9;
-  animation: orb-drift var(--orb-duration, 16s) ease-in-out infinite;
+  opacity: 0.68;
+  animation: orb-drift var(--orb-duration, 24s) ease-in-out infinite;
 }
 
 .ambient-orb-primary {
@@ -141,7 +141,7 @@ button:hover {
   left: -4.5rem;
   width: min(18rem, 42vw);
   height: min(18rem, 42vw);
-  --orb-duration: 20s;
+  --orb-duration: 30s;
   animation-delay: -6s;
   background: radial-gradient(
     circle,
@@ -153,30 +153,18 @@ button:hover {
 
 html[data-motion="enabled"] [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 32px, 0) scale(0.985);
-  filter: blur(10px);
+  transform: translate3d(0, 14px, 0) scale(0.995);
+  filter: blur(4px);
   transition:
-    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
-    filter 720ms ease var(--reveal-delay, 0ms);
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    filter 520ms ease var(--reveal-delay, 0ms);
 }
 
 html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
   opacity: 1;
   transform: none;
   filter: none;
-}
-
-[data-float] {
-  animation: gentle-float var(--float-duration, 8.5s) ease-in-out infinite;
-}
-
-[data-float="slow"] {
-  --float-duration: 11s;
-}
-
-[data-float="fast"] {
-  --float-duration: 6.8s;
 }
 
 .motion-panel {
@@ -209,9 +197,9 @@ html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
 
 .motion-panel:hover,
 .motion-panel:focus-within {
-  transform: translateY(-6px);
+  transform: translateY(-2px);
   border-color: rgba(153, 211, 93, 0.28);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
 }
 
 .motion-panel:hover::after,
@@ -257,20 +245,20 @@ html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
 }
 
 .review-card[data-active="true"] {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-2px) scale(1.005);
   border-color: rgba(153, 211, 93, 0.24);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
 }
 
 @keyframes ambient-pulse {
   0% {
-    opacity: 0.45;
+    opacity: 0.48;
     transform: scale(1);
   }
 
   100% {
-    opacity: 0.8;
-    transform: scale(1.04);
+    opacity: 0.62;
+    transform: scale(1.015);
   }
 }
 
@@ -280,18 +268,7 @@ html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
   }
 
   100% {
-    transform: translate3d(0, -1.5%, 0) scale(1.03);
-  }
-}
-
-@keyframes gentle-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  50% {
-    transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -0.5%, 0) scale(1.01);
   }
 }
 
@@ -302,14 +279,14 @@ html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
   }
 
   50% {
-    transform: translate3d(10px, -12px, 0) scale(1.06);
+    transform: translate3d(4px, -5px, 0) scale(1.02);
   }
 }
 
 @keyframes shell-settle {
   0% {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 10px, 0);
   }
 
   100% {
@@ -342,8 +319,7 @@ html[data-motion="enabled"] [data-reveal][data-revealed="true"] {
   body::before,
   body::after,
   .page-shell,
-  .ambient-orb,
-  [data-float] {
+  .ambient-orb {
     animation: none;
   }
 

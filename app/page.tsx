@@ -1,4 +1,7 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import logoImage from "@/public/LOGO.png";
 
 import { ContactEmailForm } from "./components/contact-email-form";
 import {
@@ -112,8 +115,7 @@ const serviceAreas = [
 const googleReviewsUrl =
   "https://www.google.com/maps/place/At+Your+Service+Appliance+Repairs,+LLC/@32.7430719,-96.963595,9z/data=!3m1!4b1!4m6!3m5!1s0x689c4dcb113f7c7f:0x568c2629db5b42b1!8m2!3d32.7430719!4d-96.963595!16s%2Fg%2F11md7r9s1c?entry=ttu";
 
-const viewMyWorkUrl =
-  "https://www.google.com/maps/place/At+Your+Service+Appliance+Repairs,+LLC/@32.7451109,-96.9640798,16.64z/data=!4m15!1m8!3m7!1s0x689c4dcb113f7c7f:0x568c2629db5b42b1!2sAt+Your+Service+Appliance+Repairs,+LLC!8m2!3d32.7430719!4d-96.963595!10e5!16s%2Fg%2F11md7r9s1c!3m5!1s0x689c4dcb113f7c7f:0x568c2629db5b42b1!8m2!3d32.7430719!4d-96.963595!16s%2Fg%2F11md7r9s1c?entry=ttu&g_ep=EgoyMDI2MDUxMC4wIKXMDSoASAFQAw%3D%3D";
+const viewMyWorkUrl = "/work";
 
 const contactPhone = "+1-972-670-5309";
 const contactPhoneDisplay = "(972) 670-5309";
@@ -155,11 +157,36 @@ export default function Home() {
       <main className="page-shell flex flex-1 flex-col px-4 pb-16 pt-4 sm:px-10 sm:pb-20 sm:pt-6 lg:px-14">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col overflow-hidden rounded-[2.25rem] bg-transparent">
           <section className="relative isolate overflow-hidden px-5 pb-12 pt-5 sm:px-8 sm:pb-16 sm:pt-6 lg:px-10 lg:py-8">
-            <div aria-hidden="true" className="ambient-orb ambient-orb-primary" />
-            <div aria-hidden="true" className="ambient-orb ambient-orb-secondary" />
+            <div
+              aria-hidden="true"
+              className="ambient-orb ambient-orb-primary"
+            />
+            <div
+              aria-hidden="true"
+              className="ambient-orb ambient-orb-secondary"
+            />
             <div data-reveal style={revealDelay(0)}>
               <header className="flex flex-col gap-4 border-b border-border pb-5 sm:pb-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
+                  <div className="mb-4 flex justify-center lg:justify-start">
+                    <div className="inline-flex items-center gap-3 rounded-full border border-brand/20 bg-black/30 px-3 py-2 shadow-[0_14px_35px_rgba(0,0,0,0.22)] backdrop-blur-sm">
+                      <Image
+                        src={logoImage}
+                        alt="At Your Service Appliance Repair logo"
+                        preload
+                        sizes="80px"
+                        className="h-14 w-14 rounded-full border border-white/15 object-cover shadow-[0_10px_24px_rgba(0,0,0,0.28)]"
+                      />
+                      <div className="text-start">
+                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-brand">
+                          At Your Service
+                        </p>
+                        <p className="text-sm font-semibold text-white">
+                          Appliance Repair
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                   <p className="mb-3 text-center text-xs uppercase tracking-[0.32em] text-brand lg:text-start">
                     DFW appliance repair
                   </p>
@@ -174,14 +201,12 @@ export default function Home() {
                   >
                     Call now
                   </a>
-                  <a
+                  <Link
                     href={viewMyWorkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="cta-button rounded-full border border-brand/30 bg-white/6 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
                   >
                     View my work
-                  </a>
+                  </Link>
                   <a
                     href="#contact"
                     className="cta-button rounded-full border border-white/15 px-4 py-3 text-center text-sm font-semibold text-white sm:px-6"
@@ -201,11 +226,26 @@ export default function Home() {
                     area.
                   </h2>
                   <ExpandableText
-                    text="Fast help for washers, dryers, stoves, ovens, dishwashers, microwaves, and more. If something breaks at home, the goal is simple: make it easy to call, explain the problem, and get dependable service moving quickly."
+                    text="Fast help for washers, dryers, stoves, ovens, dishwashers, microwaves, and more. Service is available for most major appliance brands, with clear communication that makes it easy to explain the issue and get dependable repair moving quickly."
                     previewWords={16}
                     className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8"
                     buttonClassName="mt-2 inline-flex text-sm font-semibold text-brand md:hidden"
                   />
+
+                  <div
+                    data-reveal
+                    style={revealDelay(130)}
+                    className="motion-panel mt-5 max-w-2xl rounded-[1.5rem] border border-white/10 bg-white/6 px-4 py-4 text-white shadow-[0_14px_35px_rgba(0,0,0,0.18)] sm:mt-6 sm:px-5"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand">
+                      Service details
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-slate-200 sm:text-base">
+                      An $85 diagnostic fee is credited toward the estimate.
+                      Payment options include Zelle, cash, credit and debit
+                      cards, checks, and Apple Pay.
+                    </p>
+                  </div>
 
                   <div
                     data-reveal
@@ -243,7 +283,6 @@ export default function Home() {
                       <div
                         key={stat.label}
                         data-reveal
-                        data-float={index === 1 ? "slow" : "fast"}
                         style={revealDelay(180 + index * 70)}
                         className={`motion-panel rounded-3xl border border-border bg-white/6 p-4 backdrop-blur-sm sm:p-5 ${
                           index === heroStats.length - 1
@@ -264,29 +303,42 @@ export default function Home() {
 
                 <div
                   data-reveal
-                  data-float="slow"
                   style={revealDelay(200)}
-                  className="motion-panel rounded-[2rem] border border-brand/20 bg-black/35 p-5 text-white shadow-[0_18px_50px_rgba(0,0,0,0.28)] sm:p-7"
+                  className="grid gap-5"
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand">
-                    What the brand promises
-                  </p>
-                  <MobileExpandablePanel
-                    collapsedLabel="View promise highlights"
-                    expandedLabel="Hide promise highlights"
-                    contentClassName="mt-4 sm:mt-5"
-                  >
-                    <ul className="space-y-4 text-sm leading-7 text-white/90">
-                      {promiseCards.map((item) => (
-                        <li
-                          key={item}
-                          className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </MobileExpandablePanel>
+                  <div className="motion-panel overflow-hidden rounded-[2rem] border border-brand/20 bg-black/35 p-3 shadow-[0_18px_50px_rgba(0,0,0,0.28)] sm:p-4">
+                    <Image
+                      src="/IMG_4510.jpeg"
+                      alt="At Your Service Appliance Repair promotional flyer featuring the business owner, phone number, and appliance services"
+                      width={1170}
+                      height={1756}
+                      preload
+                      sizes="(max-width: 1024px) 100vw, 30rem"
+                      className="h-auto w-full rounded-[1.35rem] border border-white/10 object-cover"
+                    />
+                  </div>
+
+                  <div className="motion-panel rounded-[2rem] border border-brand/20 bg-black/35 p-5 text-white shadow-[0_18px_50px_rgba(0,0,0,0.28)] sm:p-7">
+                    <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand">
+                      What the brand promises
+                    </p>
+                    <MobileExpandablePanel
+                      collapsedLabel="View promise highlights"
+                      expandedLabel="Hide promise highlights"
+                      contentClassName="mt-4 sm:mt-5"
+                    >
+                      <ul className="space-y-4 text-sm leading-7 text-white/90">
+                        {promiseCards.map((item) => (
+                          <li
+                            key={item}
+                            className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </MobileExpandablePanel>
+                  </div>
                 </div>
               </div>
             </div>
