@@ -113,6 +113,21 @@ button:hover {
   animation: shell-settle 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+body:has(.work-page-static)::before,
+body:has(.work-page-static)::after {
+  animation: none;
+}
+
+.work-page-static a,
+.work-page-static button {
+  transition: none;
+}
+
+.work-page-static a:hover,
+.work-page-static button:hover {
+  transform: none;
+}
+
 .ambient-orb {
   position: absolute;
   z-index: -1;
