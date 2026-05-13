@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import logoImage from "@/public/LOGO.png";
 
 import { ContactEmailForm } from "./components/contact-email-form";
@@ -10,6 +11,21 @@ import {
 } from "./components/mobile-expandable";
 import { ReviewsCarousel } from "./components/reviews-carousel";
 import { ScrollAnimator } from "./components/scroll-animator";
+import {
+  absoluteUrl,
+  businessDisplayName,
+  contactEmail,
+  contactPhone,
+  contactPhoneDisplay,
+  defaultKeywords,
+  homeDescription,
+  homeTitle,
+  logoPath,
+  primaryImagePath,
+  serviceAreas,
+  servicesOffered,
+  socialLinks,
+} from "./lib/site";
 
 const services = [
   {
@@ -102,34 +118,72 @@ const reviews = [
   },
 ];
 
-const serviceAreas = [
-  "Grand Prairie",
-  "Dallas",
-  "Arlington",
-  "Irving",
-  "Mansfield",
-  "Fort Worth",
-  "DFW Area",
-];
+const serviceAreaList = [...serviceAreas];
 
-const googleReviewsUrl =
-  "https://www.google.com/maps/place/At+Your+Service+Appliance+Repairs,+LLC/@32.7430719,-96.963595,9z/data=!3m1!4b1!4m6!3m5!1s0x689c4dcb113f7c7f:0x568c2629db5b42b1!8m2!3d32.7430719!4d-96.963595!16s%2Fg%2F11md7r9s1c?entry=ttu";
+const googleReviewsUrl = socialLinks.google;
 
 const viewMyWorkUrl = "/work";
 
-const contactPhone = "+1-972-670-5309";
-const contactPhoneDisplay = "(972) 670-5309";
-const contactEmail = "atyourservicea.r2025@gmail.com";
+const faqItems = [
+  {
+    question: "What appliances do you repair?",
+    answer:
+      "Service includes washer repair, dryer repair, stove repair, oven repair, dishwasher repair, microwave repair, and trash compactor repair for common household appliance problems.",
+  },
+  {
+    question: "What areas do you serve for appliance repair?",
+    answer:
+      "Service is centered in Grand Prairie and also covers Dallas, Arlington, Irving, Mansfield, Fort Worth, and nearby DFW communities.",
+  },
+  {
+    question: "Do you offer same-day appliance repair?",
+    answer:
+      "Same-day availability may be available depending on the schedule and the service area. Calling or texting is the fastest way to confirm the earliest opening.",
+  },
+  {
+    question: "How does the diagnostic fee work?",
+    answer:
+      "There is an $85 diagnostic fee, and that amount is credited toward the estimate when repair service moves forward.",
+  },
+];
+
+export const metadata: Metadata = {
+  title: homeTitle,
+  description: homeDescription,
+  keywords: [...defaultKeywords],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    url: "/",
+    title: `${homeTitle} | ${businessDisplayName}`,
+    description: homeDescription,
+    images: [
+      {
+        url: primaryImagePath,
+        alt: "At Your Service Appliance Repair promotional flyer",
+      },
+    ],
+  },
+  twitter: {
+    title: `${homeTitle} | ${businessDisplayName}`,
+    description: homeDescription,
+    images: [primaryImagePath],
+  },
+};
 
 const localBusinessSchema = {
-  "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "At Your Service Appliance Repair",
-  description:
-    "Appliance repair company serving Grand Prairie and the DFW area with kitchen and laundry appliance service.",
+  name: businessDisplayName,
+  url: absoluteUrl("/"),
+  image: [absoluteUrl(primaryImagePath)],
+  logo: absoluteUrl(logoPath),
+  description: homeDescription,
   telephone: contactPhone,
   email: contactEmail,
-  areaServed: serviceAreas,
+  priceRange: "$$",
+  sameAs: [socialLinks.facebook, socialLinks.google, socialLinks.nextdoor],
+  areaServed: serviceAreaList,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Grand Prairie",
@@ -137,6 +191,34 @@ const localBusinessSchema = {
     postalCode: "75051",
     addressCountry: "US",
   },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Appliance repair services",
+    itemListElement: servicesOffered.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service,
+      },
+    })),
+  },
+};
+
+const faqSchema = {
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [localBusinessSchema, faqSchema],
 };
 
 const revealDelay = (delay: number): CSSProperties =>
@@ -151,7 +233,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema),
+          __html: JSON.stringify(structuredData).replace(
+            /</g,
+            "\\u003c",
+          ),
         }}
       />
       <main className="page-shell flex flex-1 flex-col px-4 pb-16 pt-4 sm:px-10 sm:pb-20 sm:pt-6 lg:px-14">
@@ -222,8 +307,8 @@ export default function Home() {
                     Fast • Honest • Affordable • Insured
                   </p>
                   <h2 className="font-serif text-[2.85rem] leading-[0.9] text-white sm:text-6xl lg:text-7xl">
-                    Appliance repair for Grand Prairie homes and the wider DFW
-                    area.
+                    Appliance repair for Grand Prairie, Dallas, Arlington, and
+                    the wider DFW area.
                   </h2>
                   <ExpandableText
                     text="Fast help for washers, dryers, stoves, ovens, dishwashers, microwaves, and more. Service is available for most major appliance brands, with clear communication that makes it easy to explain the issue and get dependable repair moving quickly."
@@ -465,7 +550,7 @@ export default function Home() {
                   contentClassName="mt-2 md:mt-0"
                 >
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                    {serviceAreas.map((area, index) => (
+                    {serviceAreaList.map((area, index) => (
                       <div
                         key={area}
                         data-reveal
@@ -477,6 +562,41 @@ export default function Home() {
                     ))}
                   </div>
                 </MobileExpandablePanel>
+              </div>
+            </div>
+          </section>
+
+          <section className="px-5 py-8 sm:px-8 sm:py-10 lg:px-10">
+            <div data-reveal style={revealDelay(0)} className="py-1">
+              <div className="mb-8 max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-brand">
+                  FAQ
+                </p>
+                <h2 className="mt-3 font-serif text-4xl text-white sm:text-5xl">
+                  Appliance repair questions homeowners ask before booking.
+                </h2>
+                <p className="mt-4 text-base leading-8 text-slate-300">
+                  Quick answers about service areas, appliance types, same-day
+                  availability, and how the diagnostic fee works.
+                </p>
+              </div>
+
+              <div className="grid gap-5 lg:grid-cols-2">
+                {faqItems.map((item, index) => (
+                  <article
+                    key={item.question}
+                    data-reveal
+                    style={revealDelay(60 + index * 70)}
+                    className="motion-panel rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_14px_35px_rgba(0,0,0,0.18)]"
+                  >
+                    <h3 className="font-serif text-2xl leading-tight text-white">
+                      {item.question}
+                    </h3>
+                    <p className="mt-4 text-base leading-7 text-slate-300">
+                      {item.answer}
+                    </p>
+                  </article>
+                ))}
               </div>
             </div>
           </section>

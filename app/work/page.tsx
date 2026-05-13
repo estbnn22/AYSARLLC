@@ -1,119 +1,42 @@
-import { readdir, stat } from "node:fs/promises";
-import path from "node:path";
-
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import {
+  businessDisplayName,
+  contactPhone,
+  contactPhoneDisplay,
+  defaultKeywords,
+  primaryImagePath,
+  workPageDescription,
+  workPageTitle,
+} from "../lib/site";
+import { getGalleryCategories } from "../lib/work-gallery";
 import { WorkGalleryImage } from "./work-gallery-image";
 
-type CategoryConfig = {
-  title: string;
-  summary: string;
-  badge: string;
-};
-
-type GalleryCategory = CategoryConfig & {
-  slug: string;
-  images: string[];
-};
-
-const categoryConfig: Record<string, CategoryConfig> = {
-  dryer: {
-    title: "Dryer Repairs",
-    summary:
-      "Real service examples showing repairs, part replacements, and inside-the-machine diagnostics for common dryer issues.",
-    badge: "Laundry",
-  },
-  microwave: {
-    title: "Microwave Repairs",
-    summary:
-      "Microwave work examples focused on safe troubleshooting, clear diagnosis, and getting everyday kitchen use back on track.",
-    badge: "Kitchen",
-  },
-  oven: {
-    title: "Oven Repairs",
-    summary:
-      "Oven repair examples covering heating issues, worn components, and practical fixes for dependable cooking performance.",
-    badge: "Cooking",
-  },
-  stove: {
-    title: "Stove Repairs",
-    summary:
-      "Stove service examples featuring burner, range, and surface-level repairs completed for local homeowners.",
-    badge: "Cooking",
-  },
-  washer: {
-    title: "Washer Repairs",
-    summary:
-      "Washer repair examples showing diagnosis and hands-on work for laundry machines that need dependable service.",
-    badge: "Laundry",
-  },
-};
-
-const categoryOrder = ["dryer", "washer", "oven", "stove", "microwave"];
-const supportedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
-const contactPhone = "+1-972-670-5309";
-const contactPhoneDisplay = "(972) 670-5309";
-
 export const metadata: Metadata = {
-  title: "My Work | At Your Service Appliance Repair LLC",
-  description:
-    "Browse appliance repair photo examples from At Your Service Appliance Repair, including dryers, microwaves, ovens, stoves, and washers.",
+  title: workPageTitle,
+  description: workPageDescription,
+  keywords: [...defaultKeywords, "appliance repair photos", "dryer repair photos"],
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    url: "/work",
+    title: `${workPageTitle} | ${businessDisplayName}`,
+    description: workPageDescription,
+    images: [
+      {
+        url: primaryImagePath,
+        alt: "At Your Service Appliance Repair work gallery",
+      },
+    ],
+  },
+  twitter: {
+    title: `${workPageTitle} | ${businessDisplayName}`,
+    description: workPageDescription,
+    images: [primaryImagePath],
+  },
 };
-
-async function getGalleryCategories(): Promise<GalleryCategory[]> {
-  const workRoot = path.join(process.cwd(), "public", "work");
-  const directories = await readdir(workRoot, { withFileTypes: true });
-
-  const categories = await Promise.all(
-    directories
-      .filter((entry) => entry.isDirectory())
-      .map(async (entry) => {
-        const slug = entry.name;
-        const config = categoryConfig[slug];
-
-        if (!config) {
-          return null;
-        }
-
-        const folderPath = path.join(workRoot, slug);
-        const files = await readdir(folderPath, { withFileTypes: true });
-
-        const imageNames = files
-          .filter((file) => file.isFile())
-          .map((file) => file.name)
-          .filter((name) => supportedExtensions.has(path.extname(name).toLowerCase()))
-          .sort((left, right) => left.localeCompare(right));
-
-        const images = await Promise.all(
-          imageNames.map(async (name) => {
-            const filePath = path.join(folderPath, name);
-            const fileStats = await stat(filePath);
-            const version = Math.floor(fileStats.mtimeMs);
-
-            return `/work/${slug}/${name}?v=${version}`;
-          }),
-        );
-
-        if (images.length === 0) {
-          return null;
-        }
-
-        return {
-          slug,
-          images,
-          ...config,
-        };
-      }),
-  );
-
-  return categories
-    .filter((category): category is GalleryCategory => category !== null)
-    .sort(
-      (left, right) =>
-        categoryOrder.indexOf(left.slug) - categoryOrder.indexOf(right.slug),
-    );
-}
 
 export default async function WorkPage() {
   const categories = await getGalleryCategories();
@@ -121,7 +44,14 @@ export default async function WorkPage() {
     (photoCount, category) => photoCount + category.images.length,
     0,
   );
-  const featuredImages = categories.flatMap((category) => category.images).slice(0, 3);
+  const featuredImages = categories
+    .flatMap((category) =>
+      category.images.map((image) => ({
+        src: image.versionedSrc,
+        alt: `${category.title} example completed by ${businessDisplayName} in the DFW area`,
+      })),
+    )
+    .slice(0, 3);
 
   return (
     <main className="work-page-static flex flex-1 flex-col px-4 pb-16 pt-4 sm:px-10 sm:pb-20 sm:pt-6 lg:px-14">
@@ -196,9 +126,9 @@ export default async function WorkPage() {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                {featuredImages.map((imageSrc, index) => (
+                {featuredImages.map((image, index) => (
                   <div
-                    key={imageSrc}
+                    key={image.src}
                     className={`overflow-hidden rounded-[1.75rem] border border-brand/18 bg-black/35 p-2 shadow-[0_18px_50px_rgba(0,0,0,0.25)] ${
                       index === 0 ? "sm:col-span-2" : ""
                     }`}
@@ -209,8 +139,8 @@ export default async function WorkPage() {
                       }`}
                     >
                       <WorkGalleryImage
-                        src={imageSrc}
-                        alt="Example appliance repair work completed by At Your Service Appliance Repair"
+                        src={image.src}
+                        alt={image.alt}
                         sizes={
                           index === 0
                             ? "(max-width: 640px) 100vw, 50vw"
@@ -269,9 +199,9 @@ export default async function WorkPage() {
                     </div>
 
                     <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-2 xl:grid-cols-3">
-                      {category.images.map((imageSrc, imageIndex) => (
+                      {category.images.map((image, imageIndex) => (
                         <div
-                          key={imageSrc}
+                          key={image.versionedSrc}
                           className={`overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30 p-2 ${
                             imageIndex === 0
                               ? "sm:col-span-2 xl:col-span-2"
@@ -286,8 +216,8 @@ export default async function WorkPage() {
                             }`}
                           >
                             <WorkGalleryImage
-                              src={imageSrc}
-                              alt={`${category.title} example ${imageIndex + 1}`}
+                              src={image.versionedSrc}
+                              alt={`${category.title} repair photo from ${businessDisplayName}`}
                               sizes={
                                 imageIndex === 0
                                   ? "(max-width: 640px) 100vw, (max-width: 1280px) 66vw, 50vw"

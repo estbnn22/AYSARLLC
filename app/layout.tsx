@@ -3,6 +3,17 @@ import { Manrope, Oswald } from "next/font/google";
 import Image from "next/image";
 import logoImage from "@/public/LOGO.png";
 import "./globals.css";
+import {
+  businessDescription,
+  businessName,
+  contactPhoneDisplay,
+  contactPhoneHref,
+  defaultKeywords,
+  logoPath,
+  primaryImagePath,
+  siteUrl,
+  socialLinks,
+} from "./lib/site";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -15,24 +26,53 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "At Your Service Appliance Repair LLC | Grand Prairie & DFW",
-  description:
-    "Appliance repair for Grand Prairie and the DFW area. Fast, honest, affordable service for washers, dryers, stoves, ovens, dishwashers, microwaves, and more.",
-  icons: {
-    icon: "/LOGO.png",
-    apple: "/LOGO.png",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: businessName,
+    template: `%s | ${businessName}`,
   },
-};
-
-const businessLinks = {
-  facebook:
-    "https://www.facebook.com/p/At-Your-Service-Appliance-Repair-Llc-61576208290452/",
-  google:
-    "https://www.google.com/maps/place/At+Your+Service+Appliance+Repairs,+LLC/@32.7430719,-96.963595,9z/data=!3m1!4b1!4m6!3m5!1s0x689c4dcb113f7c7f:0x568c2629db5b42b1!8m2!3d32.7430719!4d-96.963595!16s%2Fg%2F11md7r9s1c?entry=ttu",
-  nextdoor:
-    "https://nextdoor.com/pages/at-your-service-appliance-repair-llc-grand-prairie-tx/",
-  phone: "+1 (972) 670-5309",
-  phoneHref: "tel:+19726705309",
+  description: businessDescription,
+  applicationName: businessName,
+  keywords: [...defaultKeywords],
+  authors: [{ name: businessName, url: siteUrl }],
+  creator: businessName,
+  publisher: businessName,
+  category: "home services",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: businessName,
+    title: businessName,
+    description: businessDescription,
+    images: [
+      {
+        url: primaryImagePath,
+        alt: "At Your Service Appliance Repair promotional flyer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: businessName,
+    description: businessDescription,
+    images: [primaryImagePath],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: logoPath,
+    apple: logoPath,
+  },
 };
 
 export default function RootLayout({
@@ -66,10 +106,10 @@ export default function RootLayout({
                   Appliance Repair
                 </p>
                 <a
-                  href={businessLinks.phoneHref}
+                  href={contactPhoneHref}
                   className="mt-2 inline-flex font-semibold text-slate-200"
                 >
-                  {businessLinks.phone}
+                  {contactPhoneDisplay}
                 </a>
               </div>
             </div>
@@ -77,7 +117,7 @@ export default function RootLayout({
             <div className="flex flex-col gap-3 sm:items-start lg:items-end">
               <div className="flex flex-wrap items-center gap-3 gap-y-2">
                 <a
-                  href={businessLinks.facebook}
+                  href={socialLinks.facebook}
                   target="_blank"
                   rel="noreferrer"
                   className="font-semibold text-brand"
@@ -85,7 +125,7 @@ export default function RootLayout({
                   Facebook
                 </a>
                 <a
-                  href={businessLinks.google}
+                  href={socialLinks.google}
                   target="_blank"
                   rel="noreferrer"
                   className="font-semibold text-brand"
@@ -93,7 +133,7 @@ export default function RootLayout({
                   Google
                 </a>
                 <a
-                  href={businessLinks.nextdoor}
+                  href={socialLinks.nextdoor}
                   target="_blank"
                   rel="noreferrer"
                   className="font-semibold text-brand"
@@ -101,9 +141,7 @@ export default function RootLayout({
                   Nextdoor
                 </a>
               </div>
-              <p className="text-slate-400">
-                &copy; {currentYear} At Your Service Appliance Repair LLC
-              </p>
+              <p className="text-slate-400">&copy; {currentYear} AYSARLLC</p>
             </div>
           </div>
         </footer>
