@@ -9,7 +9,8 @@ export const homeTitle = "Appliance Repair in Grand Prairie, Dallas & DFW";
 export const homeDescription =
   "At Your Service Appliance Repair LLC provides appliance repair in Grand Prairie and across DFW, including washer repair, dryer repair, oven repair, stove repair, dishwasher repair, and microwave repair.";
 
-export const workPageTitle = "Appliance Repair Work Photos in Grand Prairie & DFW";
+export const workPageTitle =
+  "Appliance Repair Work Photos in Grand Prairie & DFW";
 export const workPageDescription =
   "Browse real appliance repair photos from At Your Service Appliance Repair LLC, including dryer repair, washer repair, oven repair, stove repair, and microwave repair work completed in the DFW area.";
 
@@ -37,7 +38,12 @@ export const serviceAreas = [
   "Irving",
   "Mansfield",
   "Fort Worth",
-  "Dallas-Fort Worth",
+  "Daallas",
+  "Duncanville",
+  "DeSoto",
+  "Cedar Hill",
+  "Red Oak",
+  "Lancaster",
 ] as const;
 
 export const servicesOffered = [
